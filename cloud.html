@@ -60,7 +60,7 @@
             </div>
           </div>
 
-        <h2>Start payment</h2>
+        <h2>Create session</h2>
         <hr>
         <div class="form-group row">
             <label for="amount" class="col-4 col-form-label">Transaction Amount</label> 
@@ -84,19 +84,16 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="transaction_type" class="col-4 col-form-label">Transaction Type</label> 
-            <div class="col-8">
-            <select id="transaction_type" name="transaction_type" required="required" class="custom-select">
-                <option value="sale">Sale</option>
-                <option value="pre_auth">Pre-Authorization</option>
-            </select>
-            </div>
-        </div> 
-        <div class="form-group row">
             <div class="offset-4 col-8">
-            <button name="startPayment" id="startPayment" type="submit" class="btn btn-success">Start Payment</button>
+            <button name="createSession" id="createSession" type="submit" class="btn btn-success">Create session</button>
             </div>
         </div>  
+
+        <div class="form-group row">
+          <div class="offset-4 col-8">
+          <button name="pushToDevice" id="pushToDevice" type="submit" class="btn btn-primary">Push to device</button>
+          </div>
+      </div>  
 
         <h2>Transaction Details</h2>
         <hr>

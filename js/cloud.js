@@ -27,32 +27,28 @@ $("#connectToTerminal").click(function(){
     });
 });
 
-$("#startPayment").click(function(){
-    
-    var ip_address = $("#ip_address").val();
-    var port = $("#port").val();
-    var terminal_id = $("#terminal_id").val();
+
+$("#createSession").click(function(){
 
     var amount = $("#amount").val();
     var currency = $("#currency").val();
-    var transaction_type = $("#transaction_type").val();
+    var secret_key = $("#secret_key").val();
 
     $.ajax({
         type: 'POST',
-        url: "http://" + ip_address + ":" + port + "/create",    
+        url: "https://komoju.com/api/v1/sessions",    
         beforeSend: function (xhr) {
-            xhr.setRequestHeader('Authorization', make_base_auth(terminal_id, "password"));
+            xhr.setRequestHeader('Authorization', make_base_auth(secret_key, ""));
         },
         contentType: "application/json",
         dataType: 'json',
         data: JSON.stringify ({
             "amount": parseInt(amount),
             "currency": currency,
-            "transaction_type": transaction_type
         }),
         success: function(result){
-            $("#session_id").val(result.session_id);
-            fetchTransactionStatus(result.session_id)
+            $("#session_id").val(result.id);
+            fetchTransactionStatus(result.id)
         },
         error: function(responseText){
             console.log(responseText);
@@ -60,19 +56,43 @@ $("#startPayment").click(function(){
     });
 });
 
+$("#pushToDevice").click(function(){
+
+    var terminal_id = $("#terminal_id").val();
+    var secret_key = $("#secret_key").val();
+    var session_id = $("#session_id").val();
+
+    $.ajax({
+        type: 'POST',
+        url: "https://komoju.com/terminal/" + terminal_id + "/session/push/",    
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', make_base_auth(secret_key, ""));
+        },
+        contentType: "application/json",
+        dataType: 'json',
+        data: JSON.stringify ({
+            "session_id": session_id,
+        }),
+        success: function(result){
+
+        },
+        error: function(responseText){
+            console.log(responseText);
+        }
+    });
+});
 
 function fetchTransactionStatus(session_id) {
-    var ip_address = $("#ip_address").val();
-    var port = $("#port").val();
-    var terminal_id = $("#terminal_id").val();
 
      clearInterval(interval);
 
+     var secret_key = $("#secret_key").val();
+
      interval = window.setInterval(function(){
         $.ajax({
-            url: "http://" + ip_address + ":" + port + "/sessionStatus/" + session_id,    
+            url: "https://komoju.com/api/v1/sessions/" + session_id,    
             beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', make_base_auth(terminal_id, "password"));
+                xhr.setRequestHeader('Authorization', make_base_auth(secret_key, ""));
             },
             success: function(result){
                 if(result.status == "completed")
