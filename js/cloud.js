@@ -45,6 +45,9 @@ $("#createSession").click(function(){
         data: JSON.stringify ({
             "amount": parseInt(amount),
             "currency": currency,
+            "payment_data": {
+                "capture": "manual"
+            }
         }),
         success: function(result){
             $("#session_id").val(result.id);
