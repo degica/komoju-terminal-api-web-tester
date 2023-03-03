@@ -35,6 +35,9 @@ $("#createSession").click(function(){
     var secret_key = $("#secret_key").val();
     var transaction_type = $("#transaction_type").val();
 
+    console.log(transaction_type);
+
+
     $.ajax({
         type: 'POST',
         url: "https://komoju.com/api/v1/sessions",    
