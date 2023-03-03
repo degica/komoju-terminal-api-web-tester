@@ -33,6 +33,7 @@ $("#createSession").click(function(){
     var amount = $("#amount").val();
     var currency = $("#currency").val();
     var secret_key = $("#secret_key").val();
+    var transaction_type = $("#transaction_type").val();
 
     $.ajax({
         type: 'POST',
@@ -46,7 +47,7 @@ $("#createSession").click(function(){
             "amount": parseInt(amount),
             "currency": currency,
             "payment_data": {
-                "capture": "manual"
+                "capture": transaction_type
             }
         }),
         success: function(result){
