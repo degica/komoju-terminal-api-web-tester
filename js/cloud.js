@@ -7,7 +7,7 @@ $("#connectToTerminal").click(function(){
     var secret_key = $("#secret_key").val();
 
     $.ajax({
-        url: "https://komoju.com/terminal/" + terminal_id,    
+        url: "https://komoju.com/api/v1/pos_terminals/" + terminal_id,    
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', make_base_auth(secret_key, ""));
         },
