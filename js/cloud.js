@@ -71,7 +71,7 @@ $("#pushToDevice").click(function(){
 
     $.ajax({
         type: 'POST',
-        url: "https://komoju.com/api/v1/terminals/" + terminal_id + "/session/" + session_id + "/push",    
+        url: "https://komoju.com/api/v1/terminals/" + terminal_id + "/sessions/" + session_id + "/push",    
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', make_base_auth(secret_key, ""));
         },
@@ -93,7 +93,7 @@ $("#printReceipt").click(function(){
 
     $.ajax({
         type: 'POST',
-        url: "https://komoju.com/api/v1/terminals/" + terminal_id + "/session/" + session_id + "/print",    
+        url: "https://komoju.com/api/v1/terminals/" + terminal_id + "/sessions/" + session_id + "/print",    
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', make_base_auth(secret_key, ""));
         },
